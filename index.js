@@ -10,13 +10,12 @@ app.get('/api', function (req, res) {
 	res.json({ 'unix': Math.floor(new Date().getTime() / 1000), 'utc': new Date().toUTCString() })
 })
 
-app.get("/api/:date", function (req, res) {
+app.get("/api/:date?", function (req, res) {
 	let { date } = req.params
 
 	let intDate = parseInt(date)
-
 	if (!isNaN(Date.parse(date))) {
-		res.json({ 'unix': Date.parse(date), 'utc': new Date(Date.parse(date)).toUTCString() })
+		res.json({ unix: Date.parse(date), utc: new Date(Date.parse(date)).toUTCString() })
 	} else {
 		if (new Date(intDate) instanceof Date) {
 			res.json({ 'unix': intDate, 'utc': (new Date(intDate)).toUTCString() })
